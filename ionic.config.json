@@ -1,0 +1,7 @@
+{
+  "name": "Meka Auto",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
