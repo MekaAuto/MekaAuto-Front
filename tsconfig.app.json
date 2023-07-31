@@ -1,0 +1,21 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+  "env.d.ts", 
+  "src/**/*", 
+  "src/**/*.vue",
+  "src/views/components/*.vue",
+  "src/views/Pruebas/*.vue",
+  "./capacitor.config.ts"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "views/*":["./src/views"],
+      "components/*":["./src/views/components"]
+
+    }
+  }
+}
