@@ -14,7 +14,7 @@ const useAuthStore = defineStore('auth', {
   getters: {},
   actions: {
     async register(name: string, email: string, password: string) {
-      const uri = `${this.baseURl}/auth/register`;
+      const uri = `${this.baseURl}/create`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
         headers: {
