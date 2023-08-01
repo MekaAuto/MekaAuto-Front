@@ -44,7 +44,7 @@
                     <button
                       href="index.html"
                       class="btn btn-primary btn-user btn-block"
-                      @click.prevent="loginUser"
+                      @click.prevent="store.login(email, password)"
                     >
                       Login
                     </button>
@@ -85,58 +85,22 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import AuthService from '@/services/AuthService';
 import useAuthStore from '@/store/auth';
 import useAuthGoogleStore from '@/store/authGoogle';
-import router from '@/router';
-
-let email = ref('');
-let password = ref('');
 
 const store = useAuthStore();
 const storeGoogle = useAuthGoogleStore();
 
+let email = ref('');
+let password = ref('');
+
 email.value = storeGoogle.user.email;
-const loginUser = async () => {
-  const response = await store.login(email.value, password.value);
-  if (response === false) {
-    alert('Login error');
-    const errors = store.errors;
-    for (const error in errors) {
-      console.log(errors[error]);
-      alert(errors[error]);
-    }
-  } else {
-    const success = store.success;
-    router.push({ name: 'home' });
-    alert(success);
-  }
-};
+
+console.log(storeGoogle.user)
 
 onMounted(() => {
-  GoogleAuth.initialize({
-    clientId: '520770098242-hqplt1fvubopdp5o6csev8es3iu08l3o.apps.googleusercontent.com',
-    grantOfflineAccess: true,
-    scopes: ['profile', 'email']
-  });
+  GoogleAuth.initialize();
 });
-
-// en la funcion loginGoogle es donde se reciben los datos
-
-const singOut = () => {
-  GoogleAuth.signOut;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const authUser = async () => {
-  const auth = new AuthService();
-  const success = await auth.login(email.value, password.value);
-  if (success) {
-    alert('Exito!');
-  } else {
-    alert('Login failed');
-  }
-};
 </script>
 
 <style scoped lang="scss">

@@ -3,7 +3,7 @@
     <div class="exit" @click="emit('activeNav')"></div>
     <div id="responsive-nav" class="responsive-nav px-4 w-screen md:w-2/5 max-w-md">
       <div class="container-logo">
-        <img src="../../img/user.png" alt="Foto del usuario" width="64" height="64" />
+        <img :src=" dataUser?.picture || '../../img/user.png'" alt="Foto del usuario" width="64" height="64" />
         <div class="flex gap-4">
           <RouterLink
             :to="{ name: 'auth' }"
@@ -20,7 +20,7 @@
       </div>
 
       <hr />
-      <h2 class="nav-title">Abrahan Pulido</h2>
+      <h2 class="nav-title">{{ capitalizeFirstLetter(dataUser.give_name ?? "")+ " " + capitalizeFirstLetter(dataUser.family_name ?? "") }}</h2>
       <hr />
       <div class="scrollable-list scrollbar-cyan">
         <ul class="list-unstyled">
@@ -111,12 +111,21 @@ import { onMounted } from 'vue';
 import footerPrincipal from './footerPrincipal.vue';
 import { Ripple, initTE } from 'tw-elements';
 import useAuthGoogleStore from '@/store/authGoogle';
+import type LocalUser from '@/interfaces/LocalUser';
 
 const storeGoogle = useAuthGoogleStore();
 onMounted(() => {
   initTE({ Ripple });
 });
 const emit = defineEmits(['activeNav']);
+
+const dataUser:LocalUser = JSON.parse(localStorage.getItem('user') ?? "");
+
+console.log(dataUser)
+
+function capitalizeFirstLetter(string:string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 </script>
 
