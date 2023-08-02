@@ -68,8 +68,12 @@ const useAuthStore = defineStore('auth', {
       } else {
         this.jwt = response.token;
         this.success = response.message;
-        toast.success( response.message );
-        router.push({ name: 'home' })
+        
+        toast.success( response.message);
+
+        setTimeout(() => {
+          router.push({ name: 'home' })
+        },3000)
       }
     },
     async getNotes() {

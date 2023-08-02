@@ -94,10 +94,6 @@ const storeGoogle = useAuthGoogleStore();
 let email = ref('');
 let password = ref('');
 
-email.value = storeGoogle.user.email;
-
-console.log(storeGoogle.user)
-
 onMounted(() => {
   GoogleAuth.initialize();
 });
