@@ -1,18 +1,29 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <template>
   <div class="cerrarNav" id="cerrarNav">
     <div class="exit" @click="emit('activeNav')"></div>
     <div id="responsive-nav" class="responsive-nav px-4 w-screen md:w-2/5 max-w-md">
       <div class="container-logo">
-        <img src="../../img/user.png" alt="Foto del usuario" width="64" height="64" />
+        <img
+          :src="imgSrc || imgUser"
+          alt="Foto del usuario"
+          width="64"
+          height="64"
+          @load="onImageLoad"
+        />
         <div class="flex gap-4">
           <RouterLink
             :to="{ name: 'auth' }"
             class="btn boton-primary btn-block py-2 rounded-[10rem] border-[2px] border-white"
             @click="emit('activeNav')"
             >Ingresar</RouterLink
-            >
-            <button class="btn boton-primary btn-block py-2 rounded-[10rem] border-[2px] border-white"
-            @click="storeGoogle.logout"> Logout </button>
+          >
+          <button
+            class="btn boton-primary btn-block py-2 rounded-[10rem] border-[2px] border-white"
+            @click="storeGoogle.logout"
+          >
+            Logout
+          </button>
           <a class="btn-exit" href="#"
             ><i @click="emit('activeNav')" class="icon-exit fas fa-times"></i
           ></a>
@@ -20,7 +31,15 @@
       </div>
 
       <hr />
-      <h2 class="nav-title">Abrahan Pulido</h2>
+      <h2 class="nav-title">
+        {{
+          dataUser.give_name !== ''
+            ? capitalizeFirstLetter(dataUser.give_name ?? '') +
+              ' ' +
+              capitalizeFirstLetter(dataUser.family_name ?? '')
+            : ''
+        }}
+      </h2>
       <hr />
       <div class="scrollable-list scrollbar-cyan">
         <ul class="list-unstyled">
@@ -107,17 +126,33 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import footerPrincipal from './footerPrincipal.vue';
 import { Ripple, initTE } from 'tw-elements';
 import useAuthGoogleStore from '@/store/authGoogle';
+import imgUser from '../../img/user.png';
 
 const storeGoogle = useAuthGoogleStore();
+
+const dataUser = ref(JSON.parse(localStorage.getItem('user') ?? '{}'));
+
+const imgSrc = dataUser.value.picture;
+
+let isImageLoaded = false;
+
+const onImageLoad = () => {
+  isImageLoaded = true;
+};
+
 onMounted(() => {
   initTE({ Ripple });
 });
 const emit = defineEmits(['activeNav']);
 
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 </script>
 
 <style scoped lang="scss">
