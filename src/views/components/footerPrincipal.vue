@@ -8,6 +8,8 @@ const fecha = ref(new Date().getFullYear());
 footer {
   background-color: #201f1e;
   width: 100%;
+  position: relative;
+  bottom: 0;
 }
 .container-footer {
   padding: 1.5rem 0;
@@ -52,32 +54,17 @@ footer {
       <!-- Section: Social media -->
       <section class="contenido-redes">
         <!-- Facebook -->
-        <button 
-          class="btn-redes" 
-          href="#!" 
-          data-te-ripple-init
-          data-te-ripple-color="light"
-        >
+        <button class="btn-redes" href="#!" data-te-ripple-init data-te-ripple-color="light">
           <i class="fab fa-facebook-f"></i>
         </button>
 
         <!-- Twitter -->
-        <button 
-          class="btn-redes" 
-          href="#!" 
-          data-te-ripple-init
-          data-te-ripple-color="light"
-        >
+        <button class="btn-redes" href="#!" data-te-ripple-init data-te-ripple-color="light">
           <i class="fab fa-twitter"></i>
         </button>
 
         <!-- Instagram -->
-        <button 
-          class="btn-redes" 
-          href="#!" 
-          data-te-ripple-init
-          data-te-ripple-color="light"
-        >
+        <button class="btn-redes" href="#!" data-te-ripple-init data-te-ripple-color="light">
           <i class="fab fa-instagram"></i>
         </button>
       </section>
