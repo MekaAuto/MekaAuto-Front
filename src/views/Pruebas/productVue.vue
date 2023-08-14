@@ -10,7 +10,7 @@
       >
         <div class="w-full lg:w-[72%] shadow-sm  rounded-lg">
           <div id="product-main-img" class="2xl:h-full xl:h-4/5 lg:h-[55%] md:h-64 sm:h-72 h-72 shadow-md rounded-lg ">
-            <div class="product-preview h-full rounded-lg" id="magnifyng_area">
+            <div class="product-preview h-full rounded-lg" id="magnifyng_area" ref="magnifyng_area" @mousemove="zoom" @mouseleave="eleave">
               <img
                 src="../../img/carro/carro5.jpeg"
                 id="magnifying_img"
@@ -194,10 +194,10 @@ const imgPrincipalHeight = ref(0);
 const imgSecondaryHeight = ref(0);
 const imgSecondaryWidth = ref(0);
 
-/* const magnifyng_area:any =  document.getElementById("magnifyng_area");
+let magnifyng_area:any;
 const magnifying_img:any =  document.getElementById("magnifying_img");
 
-magnifyng_area.addEventListener("mousemove",function zoom(event:any){
+function zoom(event:any){
 	let clientX = event.clientX - magnifyng_area.offsetLeft
 	let clientY = event.clientY - magnifyng_area.offsetTop
 	 
@@ -207,12 +207,12 @@ magnifyng_area.addEventListener("mousemove",function zoom(event:any){
 	clientY = clientY / mHeight * 100
 
 	//magnifying_img.style.transform = 'translate(-50%,-50%) scale(2)'
-	magnifying_img.style.transform = 'translate(-'+clientX+'%, -'+clientY+'%) scale(2)'
-})
+	imgPrincipal.value.style.transform = 'translate(-'+clientX+'%, -'+clientY+'%) scale(2)'
+}
 
-magnifyng_area.addEventListener("mouseleave",function(){
-	magnifying_img.style.transform = 'translate(-50%,-50%) scale(1)'
-}) */
+function eleave(){
+	imgPrincipal.value.style.transform = 'translate(-50%,-50%) scale(1)'
+}
 
 /*               
   :style="`max-height:calc(${imgSecondaryHeight}px * 3 + 1px); max-width:${imgPrincipalWidth}px`"
