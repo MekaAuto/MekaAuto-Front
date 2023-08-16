@@ -10,17 +10,21 @@
       >
         <div class="w-full lg:w-[72%] shadow-sm  rounded-lg">
           <div id="product-main-img" class="2xl:h-full xl:h-4/5 lg:h-[55%] md:h-64 sm:h-72 h-72 shadow-md rounded-lg ">
-            <div class="product-preview h-full rounded-lg" id="magnifyng_area" ref="magnifyng_area" @mousemove="zoom" @mouseleave="eleave">
+            <figure class="product-preview h-full magnifyng_area rounded-lg" 
+              ref="magnifyng_area" 
+              @mousemove="zoom" 
+              @mouseleave="eleave"
+              @load="zoom">
               <img
                 src="../../img/carro/carro5.jpeg"
                 id="magnifying_img"
                 ref="imgPrincipal"
                 @load="getimgPrincipalSize"
                 
-                class="w-full h-full magnifying_img rounded-lg"
+                class="w-full h-full magnifying_img "
                 alt=""
               />
-            </div>
+            </figure>
           </div>
         </div>
         <!-- /Product main img -->
@@ -189,34 +193,32 @@ import ProductSlider from '../home/productSlider.vue';
 
 const imgPrincipal = ref();
 const imgSecundary = ref();
+const magnifyng_area = ref();
+
 const imgPrincipalWidth = ref(0);
 const imgPrincipalHeight = ref(0);
 const imgSecondaryHeight = ref(0);
 const imgSecondaryWidth = ref(0);
 
-let magnifyng_area:any;
-const magnifying_img:any =  document.getElementById("magnifying_img");
 
 function zoom(event:any){
-	let clientX = event.clientX - magnifyng_area.offsetLeft
-	let clientY = event.clientY - magnifyng_area.offsetTop
-	 
-	let mWidth = magnifyng_area.offsetWidth
-	let mHeight = magnifyng_area.offsetHeight
+	let clientX = event.clientX - magnifyng_area.value.offsetLeft
+	let clientY = event.clientY - magnifyng_area.value.offsetTop
+  
+	let mWidth = magnifyng_area.value.offsetWidth
+	let mHeight = magnifyng_area.value.offsetHeight
+
 	clientX = clientX / mWidth * 100
 	clientY = clientY / mHeight * 100
 
 	//magnifying_img.style.transform = 'translate(-50%,-50%) scale(2)'
-	imgPrincipal.value.style.transform = 'translate(-'+clientX+'%, -'+clientY+'%) scale(2)'
+	imgPrincipal.value.style.transform = `translate(-${clientX}%, -${clientY}%) scale(2)`
 }
 
 function eleave(){
 	imgPrincipal.value.style.transform = 'translate(-50%,-50%) scale(1)'
 }
 
-/*               
-  :style="`max-height:calc(${imgSecondaryHeight}px * 3 + 1px); max-width:${imgPrincipalWidth}px`"
- */
 const getimgPrincipalSize = () => {
   imgPrincipalWidth.value = imgPrincipal.value.clientWidth;
   imgPrincipalHeight.value = imgPrincipal.value.clientHeight;
@@ -230,15 +232,16 @@ window.addEventListener('resize', getimgPrincipalSize);
 <style scoped lang="scss">
 #product-main-img {
   width: 100%;
+  cursor: zoom-in;
+}
+
+.magnifyng_area {
+  height: 100%;
   overflow: hidden;
   position: relative;
 }
 
-#magnifyng_area {
-  height: 100%;
-}
-
-#magnifyng_area .magnifying_img {
+.magnifyng_area .magnifying_img {
   max-width: 100%;
   min-width: 100%;
   height: 100%;
@@ -251,7 +254,7 @@ window.addEventListener('resize', getimgPrincipalSize);
   pointer-events: none;
 }
 
-#magnifyng_area .magnifying_img:hover {
+.magnifyng_area .magnifying_img:hover {
 }
 
 .product-name {
