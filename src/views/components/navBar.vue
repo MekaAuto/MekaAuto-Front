@@ -10,6 +10,8 @@
           width="64"
           height="64"
           @load="onImageLoad"
+          decoding="async"
+          referrerpolicy="no-referrer"
         />
         <div class="flex gap-4">
           <RouterLink
@@ -141,7 +143,7 @@ const imgSrc = dataUser.value.picture;
 let isImageLoaded = false;
 
 const onImageLoad = () => {
-  isImageLoaded = true;
+  return isImageLoaded = true;
 };
 
 onMounted(() => {

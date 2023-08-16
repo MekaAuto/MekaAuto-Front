@@ -3,8 +3,6 @@
 
 mekaauto
 
-android/
-
 ### Android ###
 # Gradle files
 .gradle/
