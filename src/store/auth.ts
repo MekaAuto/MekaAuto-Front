@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import router from '@/router';
 import { defineStore } from 'pinia';
+import { toast, type ToastOptions } from 'vue3-toastify';
 
 const useAuthStore = defineStore('auth', {
   state: () => {
@@ -14,7 +16,7 @@ const useAuthStore = defineStore('auth', {
   getters: {},
   actions: {
     async register(name: string, email: string, password: string) {
-      const uri = `${this.baseURl}/auth/register`;
+      const uri = `${this.baseURl}/create`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -59,13 +61,19 @@ const useAuthStore = defineStore('auth', {
       });
       const response = await rawResponse.json();
       if (response.status === false) {
-        this.errors = response.errors;
-        this.jwt = null;
-        return false;
+        for( const err in response.errors ) {
+          toast.error( response.errors[err] );
+          console.log( response.errors[err] );
+        }
       } else {
         this.jwt = response.token;
         this.success = response.message;
-        return true;
+        
+        toast.success( response.message);
+
+        setTimeout(() => {
+          router.push({ name: 'home' })
+        },3000)
       }
     },
     async getNotes() {

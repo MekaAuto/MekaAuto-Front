@@ -62,6 +62,11 @@ const router = createRouter({
       path: '/prueba/filtro',
       name: 'pruebaFiltro',
       component: () => import('../views/Pruebas/filtroPrueba.vue')
+    },
+    {
+      path: '/prueba/toast',
+      name: 'pruebaToast',
+      component: () => import('@/views/Pruebas/toastPrueba.vue')
     }
   ]
 });
