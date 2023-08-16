@@ -25,7 +25,7 @@
     "@capacitor/ios": "5.1.1",
     "@capacitor/keyboard": "5.0.5",
     "@capacitor/local-notifications": "^5.0.6",
-    "@capacitor/status-bar": "5.0.5",
+    "@capacitor/status-bar": "^5.0.5",
     "@codetrix-studio/capacitor-google-auth": "^3.3.2",
     "@headlessui/vue": "^1.7.14",
     "@heroicons/vue": "^2.0.18",
