@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/product',
       name: 'product',
-      component: () => import('../views/Pruebas/productVue.vue')
+      component: () => import('../views/products/productVue.vue')
     },
     {
       path: '/home/carroHome',
@@ -57,16 +57,6 @@ const router = createRouter({
       path: '/home/camionHome',
       name: 'camionHome',
       component: () => import('../views/home/categorias/camionHome.vue')
-    },
-    {
-      path: '/prueba/filtro',
-      name: 'pruebaFiltro',
-      component: () => import('../views/Pruebas/filtroPrueba.vue')
-    },
-    {
-      path: '/prueba/toast',
-      name: 'pruebaToast',
-      component: () => import('@/views/Pruebas/toastPrueba.vue')
     }
   ]
 });
