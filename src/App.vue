@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 import {LocalNotifications} from "@capacitor/local-notifications"
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Capacitor } from '@capacitor/core';
 
 LocalNotifications.requestPermissions()
+
+if(Capacitor.getPlatform() === "ios")
+  StatusBar.setStyle({ style: Style.Dark });
 
 </script>
 <template>

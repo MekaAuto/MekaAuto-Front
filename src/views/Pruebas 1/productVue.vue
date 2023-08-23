@@ -185,7 +185,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import FooterPrincipal from '../components/footerPrincipal.vue';
 import HeaderVue from '../components/headerVue.vue';
 
@@ -199,6 +199,11 @@ const imgPrincipalWidth = ref(0);
 const imgPrincipalHeight = ref(0);
 const imgSecondaryHeight = ref(0);
 const imgSecondaryWidth = ref(0);
+
+onMounted( () => {
+  console.log(magnifyng_area.value)
+
+})
 
 
 function zoom(event:any){
@@ -252,9 +257,6 @@ window.addEventListener('resize', getimgPrincipalSize);
   top: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-}
-
-.magnifyng_area .magnifying_img:hover {
 }
 
 .product-name {
@@ -444,39 +446,3 @@ ol {
   user-select: none;
 }
 </style>
-
-<!-- 
-  Si el valor de `anchoDiv` es 0, es posible que se deba a que se está intentando acceder al ancho de la div antes de que se haya renderizado. En ese caso, puedes utilizar el gancho de ciclo de vida `onUpdated()` para asegurarte de que la div se haya renderizado antes de acceder a su ancho. Por ejemplo:
-
-```html
-<template>
-  <div ref="miDiv"></div>
-</template>
-
-<script setup>
-import { ref, onMounted, onUpdated } from 'vue';
-
-export default {
-  setup() {
-    const miDiv = ref(null);
-    const anchoDiv = ref(0);
-
-    onMounted(() => {
-      anchoDiv.value = miDiv.value.offsetWidth;
-    });
-
-    onUpdated(() => {
-      anchoDiv.value = miDiv.value.offsetWidth;
-    });
-
-    return {
-      miDiv,
-      anchoDiv,
-    };
-  },
-};
-</script>
-```
-
-Espero que esto te ayude. ¿Hay algo más en lo que pueda ayudarte?
- -->

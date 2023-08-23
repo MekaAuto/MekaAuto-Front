@@ -1,14 +1,29 @@
+<!-- eslint-disable no-constant-condition -->
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import NavBar from './navBar.vue';
+import { Capacitor } from '@capacitor/core';
+
+const header = ref();
+onMounted(() => {
+  const iosPadding = () => {
+    
+    header.value.style.paddingTop = "50px 0 35px"
+    header.value.style.height = "auto"
+  }
+  
+  if (Capacitor.getPlatform() == "ios") {
+    iosPadding();
+  }
+})
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(['activeNav'])
+const emit = defineEmits(['activeNav']);
 
 const activeNav = () => {
   // @ts-ignore: Object is possibly 'null'.
   document.getElementById('cerrarNav').classList.toggle('active');
-}
-
+};
 </script>
 
 <style scoped lang="scss">
@@ -98,18 +113,18 @@ header {
 }
 
 .boton-secondary:hover {
-    background-color: #f3f3f3;
-  }
+  background-color: #f3f3f3;
+}
 
-  .boton-secondary:active {
-    background-color: #aaaaaa;
-  }
+.boton-secondary:active {
+  background-color: #aaaaaa;
+}
 </style>
 
 <template>
-  <header>
-    <div class="container-header px-4 sm:container sm:p-0 ">
-      <div class="container-nav ">
+  <header ref="header">
+    <div class="container-header px-4 sm:container sm:p-0" >
+      <div class="container-nav">
         <div class="">
           <a href="#" class="btn-header" @click="activeNav">
             <i class="icon-header fas fa-bars boton-primary"></i>
