@@ -367,7 +367,6 @@ window.addEventListener('resize', getimgPrincipalSize);
   position: relative;
 }
 input[type='number'] {
-  -moz-appearance: textfield;
   height: 40px;
   width: 100%;
   border: 1px solid #e4e7ed;
