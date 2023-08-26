@@ -147,7 +147,6 @@ onMounted(() => {
 });
 const emit = defineEmits(['activeNav']);
 
-console.log(storeDataUser.email);
 </script>
 
 <style scoped lang="scss">
