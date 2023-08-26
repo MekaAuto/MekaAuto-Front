@@ -9,7 +9,7 @@ const useAuthStore = defineStore('auth', {
       jwt: null as string | null,
       errors: {} as any | string,
       success: '',
-      baseURl: 'http://127.0.0.1:8000/api',
+      baseURl: 'https://mekautos.uniblockweb.com/api',
       name: ''
     };
   },
@@ -37,6 +37,9 @@ const useAuthStore = defineStore('auth', {
          * this.errors.password = response.errors.password[0] | "";
          * */
         this.errors = response.errors;
+        for ( const error in this.errors ) {
+          toast.success(this.errors[error])
+        }
         return false;
         //ERROR
       } else {
@@ -47,7 +50,7 @@ const useAuthStore = defineStore('auth', {
       }
     },
     async login(email: string, password: string) {
-      const uri = `${this.baseURl}/auth/login`;
+      const uri = `${this.baseURl}/login`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
         headers: {

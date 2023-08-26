@@ -122,13 +122,14 @@ header {
 </style>
 
 <template>
+  <div style="height: 133px"></div>
   <header ref="header">
     <div class="container-header px-4 sm:container sm:p-0" >
       <div class="container-nav">
         <div class="">
-          <a href="#" class="btn-header" @click="activeNav">
+          <button href="#" class="btn-header" @click="activeNav">
             <i class="icon-header fas fa-bars boton-primary"></i>
-          </a>
+          </button>
         </div>
 
         <div href="#" class="logo-header">

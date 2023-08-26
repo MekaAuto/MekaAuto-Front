@@ -2,6 +2,13 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { defineStore } from 'pinia';
 import jwt_decode from 'jwt-decode';
 import router from '@/router';
+import useDataUser from './dataUser';
+
+const storeDataUser = useDataUser();
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 const useAuthGoogleStore = defineStore('authGoogle', {
   state: () => {
@@ -19,19 +26,29 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         const response = await GoogleAuth.signIn();
         this.user = jwt_decode(response.authentication.idToken);
 
+        console.log(response);
+
         const dataUser = {
           email: this.user.email,
-          picture: this.user.picture,
+          family_name: this.user.family_name,
           give_name: this.user.given_name,
-          family_name: this.user.family_name
+          picture: this.user.picture
         };
+
+        storeDataUser.email = this.user.email;
+        storeDataUser.family_name = this.user.family_name;
+        storeDataUser.given_name = this.user.given_name;
+        storeDataUser.picture = this.user.picture;
+        storeDataUser.fullname =
+          capitalizeFirstLetter(this.user.given_name ?? '') +
+          ' ' +
+          capitalizeFirstLetter(this.user.family_name ?? '');
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));
 
         /* const { sub, name, given_name, family_name, picture, email } = this.user; */
-
-        router.push({ name: 'home' });
+        await router.push({ name: 'home' });
       } catch (error: any) {
         throw new Error(error);
       }

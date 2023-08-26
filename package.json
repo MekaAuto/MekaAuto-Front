@@ -27,7 +27,7 @@
     "@capacitor/local-notifications": "^5.0.6",
     "@capacitor/status-bar": "^5.0.5",
     "@codetrix-studio/capacitor-google-auth": "^3.3.2",
-    "@headlessui/vue": "^1.7.14",
+    "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
     "@tailwindcss/forms": "^0.5.3",
     "jwt-decode": "^3.1.2",

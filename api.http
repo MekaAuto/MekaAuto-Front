@@ -1,0 +1,30 @@
+GET http://127.0.0.1:8000
+
+###
+
+POST https://mekautos.uniblockweb.com/api/create
+
+{
+  "name": "david",
+  "email": "davidostos2@gmail.com",
+  "password" : "123456"
+}
+
+###
+
+POST https://mekautos.uniblockweb.com/api/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "davidostos2@gmail.com",
+  "password" : "123456"
+}
+
+###
+POST http://127.0.0.1:8000/api/auth/login
+
+{
+  "email": "davidostos2@gmail.com",
+  "password" : "123456"
+}

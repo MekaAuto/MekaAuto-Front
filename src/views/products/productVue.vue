@@ -1,6 +1,5 @@
 <template>
   <HeaderVue />
-  <div style="height: 133px"></div>
   <div class="px-1 md:px-0 md:container mx-auto my-8 font-roboto">
     <!-- row -->
     <div class="flex flex-col md:flex-row gap-3 justify-between mt-0 sm:mx-[calc(1.5rem/-2)] sm:px-8 md:px-0">
@@ -371,8 +370,19 @@ input[type='number'] {
   width: 100%;
   border: 1px solid #e4e7ed;
   background-color: #fff;
-  padding: 0px 35px 0px 15px;
+  padding: 0px 35px 0px 15px;  
 }
+
+webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 .qty-up {
   right: 0;
   top: 0;

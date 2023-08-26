@@ -57,8 +57,16 @@ const router = createRouter({
       path: '/home/camionHome',
       name: 'camionHome',
       component: () => import('../views/home/categorias/camionHome.vue')
+    },
+    {
+      path: '/user',
+      name: 'userInfo',
+      component: () => import('../views/user/userBase.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition){
+    return { top: 0 }
+  }
 });
 
 router.beforeEach((to, from, next) => {

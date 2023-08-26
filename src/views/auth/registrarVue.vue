@@ -148,7 +148,6 @@ const createUser = async () => {
     const errors = store.errors;
     for (const error in errors) {
       console.log(errors[error]);
-      alert(errors[error]);
     }
   } else {
     router.push({ name: 'home' });
