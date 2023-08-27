@@ -9,6 +9,8 @@ LocalNotifications.requestPermissions()
 if(Capacitor.getPlatform() === "ios")
   StatusBar.setStyle({ style: Style.Dark });
 
+  console.log(import.meta.env.PORT)
+
 </script>
 <template>
   <div class="min-h-screen">
