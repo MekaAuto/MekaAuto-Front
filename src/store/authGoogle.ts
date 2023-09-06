@@ -14,9 +14,9 @@ const useAuthGoogleStore = defineStore('authGoogle', {
   state: () => {
     return {
       user: {} as any,
-      baseURl: 'http://127.0.0.1:8000/api',
+      baseURl: import.meta.env.VITE_BACK_URL,
       picture: String,
-      dataUser: Object || JSON.parse(localStorage.getItem('user') ?? '')
+      dataUser: Object || JSON.parse(localStorage.getItem('user') ?? "{}")
     };
   },
   actions: {
@@ -26,15 +26,33 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         const response = await GoogleAuth.signIn();
         this.user = jwt_decode(response.authentication.idToken);
 
-        console.log(response);
-
         const dataUser = {
           email: this.user.email,
           family_name: this.user.family_name,
           give_name: this.user.given_name,
-          picture: this.user.picture
+          picture: this.user.picture,
+          AccessToken: ""
         };
-
+        const uri = `${this.baseURl}/auth/googleUse`;
+        const responseUser = await fetch(uri, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'Application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            "email": this.user.email,
+            "familyName" : this.user.family_name,
+            "givenName" : this.user.given_name,
+            "imageUrl" : this.user.picture,
+            "idToken": response.authentication.idToken
+          })
+        })
+        dataUser.AccessToken = responseUser.url
+        const res = await responseUser.json()
+        console.log(res)
+        console.log(responseUser)
+        
         storeDataUser.email = this.user.email;
         storeDataUser.family_name = this.user.family_name;
         storeDataUser.given_name = this.user.given_name;
@@ -43,6 +61,7 @@ const useAuthGoogleStore = defineStore('authGoogle', {
           capitalizeFirstLetter(this.user.given_name ?? '') +
           ' ' +
           capitalizeFirstLetter(this.user.family_name ?? '');
+        storeDataUser.AccessToken = responseUser.url
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));

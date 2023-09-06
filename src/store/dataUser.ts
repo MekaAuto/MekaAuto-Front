@@ -5,7 +5,8 @@ interface State {
   family_name: string,
   given_name: string,
   picture: string,
-  fullname: string
+  fullname: string,
+  AccessToken: string
 }
 
 function capitalizeFirstLetter(string: string) {
@@ -14,14 +15,15 @@ function capitalizeFirstLetter(string: string) {
 
 const user = JSON.parse(localStorage.getItem('user') ?? '{}' );
 
-const useDataUser = defineStore('data',{
+const useDataUser = defineStore('dataUser',{
   state: (): State => {
     return {
       email: user.email ,
       family_name: user.family_name,
       given_name: user.give_name,
       picture: user.picture,
-      fullname:  capitalizeFirstLetter(user.give_name ?? '') + ' ' + capitalizeFirstLetter(user.family_name  ?? '')
+      fullname:  capitalizeFirstLetter(user.give_name ?? '') + ' ' + capitalizeFirstLetter(user.family_name  ?? ''),
+      AccessToken: user.AccessToken
     }
   }
 })

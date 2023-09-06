@@ -4,6 +4,24 @@ import { onMounted, ref } from 'vue';
 import NavBar from './navBar.vue';
 import { Capacitor } from '@capacitor/core';
 
+
+const prevScrolly = ref(window.scrollY)
+const headerClass = ref("")
+
+function functionScroll () {
+  console.log("Scroll")
+  const currentScrolly = window.scrollY
+  if (currentScrolly > prevScrolly.value){
+    headerClass.value = 'hidden'
+  }else{
+    headerClass.value = ''
+  }
+
+  prevScrolly.value = currentScrolly;
+}
+
+/* console.log(sticky) */
+
 const header = ref();
 onMounted(() => {
   const iosPadding = () => {
@@ -122,6 +140,7 @@ header {
 </style>
 
 <template>
+<div :class="headerClass" :onScroll="functionScroll">
   <div style="height: 133px"></div>
   <header ref="header">
     <div class="container-header px-4 sm:container sm:p-0" >
@@ -152,4 +171,5 @@ header {
   </header>
 
   <NavBar @activeNav="activeNav" />
+</div>
 </template>

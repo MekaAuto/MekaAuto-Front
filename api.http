@@ -2,17 +2,19 @@ GET http://127.0.0.1:8000
 
 ###
 
-POST https://mekautos.uniblockweb.com/api/create
+POST https://mekautos.uniblockweb.com/api/auth/register
+Accept: application/json
+Content-Type: application/json
 
 {
   "name": "david",
-  "email": "davidostos2@gmail.com",
+  "email": "davidosto@gmail.com",
   "password" : "123456"
 }
 
 ###
 
-POST https://mekautos.uniblockweb.com/api/login
+POST https://mekautos.uniblockweb.com/api/auth/login
 Accept: application/json
 Content-Type: application/json
 
@@ -23,8 +25,23 @@ Content-Type: application/json
 
 ###
 POST http://127.0.0.1:8000/api/auth/login
+Accept: application/json
+Content-Type: application/json
 
 {
   "email": "davidostos2@gmail.com",
   "password" : "123456"
+}
+
+### 
+POST https://mekautos.uniblockweb.com/api/auth/googleUser
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "davidostos2@gmail.com",
+  "familyName" : "Ostos",
+  "givenName" : "David",
+  "imageUrl" : "https://lh3.googleusercontent.com/a/AAcHTtc-_Si48dFtZfLb_TvZofIhVrhKsB5Cw5szBCmjg1OfTdU=s96-c",
+  "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImM3ZTExNDEwNTlhMTliMjE4MjA5YmM1YWY3YTgxYTcyMGUzOWI1MDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTIwNzcwMDk4MjQyLWhxcGx0MWZ2dWJvcGRwNW82Y3NldjhlczNpdTA4bDNvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTIwNzcwMDk4MjQyLWhxcGx0MWZ2dWJvcGRwNW82Y3NldjhlczNpdTA4bDNvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTEwNzY3MDEyMjI3NTQ3NTk2MzQwIiwiZW1haWwiOiJkYXZpZG9zdG9zMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6Iko4UWliaTgtQ1VxdVBDaUxOOXVzdEEiLCJuYmYiOjE2OTM2MzA2MTcsIm5hbWUiOiJkYXZpZCBvc3RvcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQWNIVHRjLV9TaTQ4ZEZ0WmZMYl9UdlpvZkloVnJoS3NCNUN3NXN6QkNtamcxT2ZUZFU9czk2LWMiLCJnaXZlbl9uYW1lIjoiZGF2aWQiLCJmYW1pbHlfbmFtZSI6Im9zdG9zIiwibG9jYWxlIjoiZXMiLCJpYXQiOjE2OTM2MzA5MTcsImV4cCI6MTY5MzYzNDUxNywianRpIjoiMzQ5NGE1YjNmNzE4YzZmNzU2OTYzY2NjZGUxMTA3Nzk4ZTU2MDU4OCJ9.nJq-RU0IG0JrEELDdVlK96Klky7OrADnXO1HG9XIptIwsebPu4Q9QmSlQZMUfx99jiVYpoygYtwKlLineyx_FwbNooOJDxBcffYtSU4hQk93cf0-gkR5qQrUMk9BgVZbmzg-POu4OupKp098OhhfNGf3HbcUgdKC4K7temtzA7k1mK5uhDABZxIdCHs6DRLS67FTsTZ9ZXPjRlL443hPFKuVomV-WKsyf6WVgly6TTughCSrsou_Z5MMEDfw3POVf188opgssXh_icjP8-5BCX_EQ3inwR-U2vKboami6BvMD5S25f2Mf0obOfN913PTC_h-Q32UOys_izNmBZfOUw"
 }

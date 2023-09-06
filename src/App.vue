@@ -4,13 +4,15 @@ import {LocalNotifications} from "@capacitor/local-notifications"
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { Capacitor } from '@capacitor/core';
 
+import useDataUser from './store/dataUser';
+
+const store = useDataUser()
 LocalNotifications.requestPermissions()
 
 if(Capacitor.getPlatform() === "ios")
   StatusBar.setStyle({ style: Style.Dark });
 
-  console.log(import.meta.env.PORT)
-
+console.log(store.AccessToken)
 </script>
 <template>
   <div class="min-h-screen">

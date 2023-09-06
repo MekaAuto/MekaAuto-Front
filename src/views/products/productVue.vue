@@ -200,8 +200,6 @@ const imgSecondaryHeight = ref(0);
 const imgSecondaryWidth = ref(0);
 
 onMounted( () => {
-  console.log(magnifyng_area.value)
-
 })
 
 
