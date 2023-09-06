@@ -71,7 +71,7 @@
             </button>
           </li>
           <hr />
-          <h2 class="nav-title">MekAuto</h2>
+          <h2 class="nav-title meka-auto">MekAuto</h2>
           <li>
             <button data-te-ripple-init data-te-ripple-color="light" class="btn-categoria btn-dark">
               <i class="fas fa-star"></i> Lista de favoritos
@@ -269,6 +269,10 @@ hr {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
+}
+
+.nav-title.meka-auto{
+  padding-bottom: 1rem;
 }
 
 .btn-primary {
