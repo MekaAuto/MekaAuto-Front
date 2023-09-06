@@ -20,7 +20,7 @@ const useAuthStore = defineStore('auth', {
   getters: {},
   actions: {
     async register(name: string, email: string, password: string) {
-      const uri = `${this.baseURl}/auth/register`;
+      const uri = `https://mekautos.uniblockweb.com/api/auth/register`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -55,7 +55,7 @@ const useAuthStore = defineStore('auth', {
     },
     async login(email: string, password: string) {
       const storeDataUser = useDataUser();
-      const uri = `${this.baseURl}/auth/login`;
+      const uri = `https://mekautos.uniblockweb.com/api/auth/login`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
         headers: {
