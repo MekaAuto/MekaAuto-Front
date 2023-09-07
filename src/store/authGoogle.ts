@@ -16,7 +16,7 @@ const useAuthGoogleStore = defineStore('authGoogle', {
       user: {} as any,
       baseURl: import.meta.env.VITE_BACK_URL,
       picture: String,
-      dataUser: Object || JSON.parse(localStorage.getItem('user') ?? "{}")
+      dataUser: Object || JSON.parse(localStorage.getItem('user') ?? '{}')
     };
   },
   actions: {
@@ -26,14 +26,16 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         const response = await GoogleAuth.signIn();
         this.user = jwt_decode(response.authentication.idToken);
 
+        console.log(response);
+
         const dataUser = {
           email: this.user.email,
           family_name: this.user.family_name,
           give_name: this.user.given_name,
           picture: this.user.picture,
-          AccessToken: ""
+          AccessToken: ''
         };
-        const uri = `${this.baseURl}/auth/googleUse`;
+        const uri = `${this.baseURl}/auth/googleUser`;
         const responseUser = await fetch(uri, {
           method: 'POST',
           headers: {
@@ -41,18 +43,18 @@ const useAuthGoogleStore = defineStore('authGoogle', {
             Accept: 'application/json'
           },
           body: JSON.stringify({
-            "email": this.user.email,
-            "familyName" : this.user.family_name,
-            "givenName" : this.user.given_name,
-            "imageUrl" : this.user.picture,
-            "idToken": response.authentication.idToken
+            email: this.user.email,
+            familyName: this.user.family_name,
+            givenName: this.user.given_name,
+            imageUrl: this.user.picture,
+            idToken: response.id
           })
-        })
-        dataUser.AccessToken = responseUser.url
-        const res = await responseUser.json()
-        console.log(res)
-        console.log(responseUser)
-        
+        });
+        const res = await responseUser.json();
+        dataUser.AccessToken = res.remember_token;
+        console.log(res.remember_token);
+        console.log(responseUser);
+
         storeDataUser.email = this.user.email;
         storeDataUser.family_name = this.user.family_name;
         storeDataUser.given_name = this.user.given_name;
@@ -60,8 +62,8 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         storeDataUser.fullname =
           capitalizeFirstLetter(this.user.given_name ?? '') +
           ' ' +
-          capitalizeFirstLetter(this.user.family_name ?? '');
-        storeDataUser.AccessToken = responseUser.url
+          capitalizeFirstLetter(this.user.family_name ?? ''); 
+        storeDataUser.AccessToken = res.remember_token
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));

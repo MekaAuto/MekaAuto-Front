@@ -62,10 +62,20 @@ const router = createRouter({
       path: '/user',
       name: 'userInfo',
       component: () => import('../views/user/userBase.vue')
+    },
+    {
+      path: '/prueba/productBuscador',
+      name: 'productBuscador',
+      component: () => import('../views/products/productBuscador.vue')
+    },
+    {
+      path: '/prueba/productHome',
+      name: 'productHome',
+      component: () => import('../views/products/productHome.vue')
     }
   ],
-  scrollBehavior(to, from, savedPosition){
-    return { top: 0 }
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 };
   }
 });
 

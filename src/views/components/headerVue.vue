@@ -1,39 +1,44 @@
 <!-- eslint-disable no-constant-condition -->
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import NavBar from './navBar.vue';
 import { Capacitor } from '@capacitor/core';
 
-
-const prevScrolly = ref(window.scrollY)
-const headerClass = ref("")
-
-function functionScroll () {
-  console.log("Scroll")
-  const currentScrolly = window.scrollY
-  if (currentScrolly > prevScrolly.value){
-    headerClass.value = 'hidden'
-  }else{
-    headerClass.value = ''
-  }
-
-  prevScrolly.value = currentScrolly;
-}
-
-/* console.log(sticky) */
-
+const prevScrolly = ref(0);
+const headerClass = ref('');
 const header = ref();
+const heightDiv = ref('133px');
+
 onMounted(() => {
-  const iosPadding = () => {
-    
-    header.value.style.paddingTop = "50px 0 35px"
-    header.value.style.height = "auto"
+  addEventListener('scroll', scrollFunction);
+});
+
+onBeforeMount(() => {
+  removeEventListener('scroll', scrollFunction);
+});
+
+const scrollFunction: any = () => {
+  const currentScrolly = window.scrollY;
+  if (currentScrolly === 0) {
+    headerClass.value = '';
+    return;
   }
-  
-  if (Capacitor.getPlatform() == "ios") {
-    iosPadding();
+  if (currentScrolly > prevScrolly.value && headerClass.value !== 'scroll-down') {
+    headerClass.value = 'scroll-down';
+  } else if (currentScrolly < prevScrolly.value && headerClass.value === 'scroll-down') {
+    headerClass.value = 'scroll-up';
   }
-})
+  prevScrolly.value = currentScrolly;
+};
+
+const iosPadding = () => {
+  header.value.style.paddingTop = '50px 0 35px';
+  header.value.style.height = 'auto';
+};
+
+if (Capacitor.getPlatform() == 'ios') {
+  iosPadding();
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const emit = defineEmits(['activeNav']);
@@ -45,6 +50,17 @@ const activeNav = () => {
 </script>
 
 <style scoped lang="scss">
+/* .header {
+  transition: 1s;
+} */
+.scroll-down {
+  transform: translate3d(0, -100%, 0);
+}
+
+.scroll-up {
+  transform: none;
+}
+
 header {
   padding: 15px 0;
   background-color: #15161d;
@@ -54,6 +70,7 @@ header {
   width: 100%;
   height: 133px;
   z-index: 4;
+  transition: transform 0.4s;
 }
 
 .container-header {
@@ -140,10 +157,9 @@ header {
 </style>
 
 <template>
-<div :class="headerClass" :onScroll="functionScroll">
-  <div style="height: 133px"></div>
-  <header ref="header">
-    <div class="container-header px-4 sm:container sm:p-0" >
+  <div :style="`height: ${heightDiv}; background-color: #f4f4f4 `"></div>
+  <header ref="header" class="header" :class="headerClass" id="header">
+    <div class="container-header px-4 sm:container sm:p-0">
       <div class="container-nav">
         <div class="">
           <button href="#" class="btn-header" @click="activeNav">
@@ -169,7 +185,5 @@ header {
       </div>
     </div>
   </header>
-
   <NavBar @activeNav="activeNav" />
-</div>
 </template>
