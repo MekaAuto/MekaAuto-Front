@@ -30,14 +30,11 @@ fetch(uri, {
 /*     advertisingSlider.value = data.advertisingSlider;     new_products.value = products.value.new_products;
     top_sales.value = products.value.top_sales;
     top_sales2.value = products.value.top_sales2;*/
-    for (const product of most_seen.value){ 
-      console.log(product)
+    for (const product in most_seen.value){ 
+      console.log(most_seen.value[product])
     }
     console.log(most_seen.value);
   });
-
-onBeforeMount(() => {
-})
 
 </script>
 
@@ -47,12 +44,12 @@ onBeforeMount(() => {
     <div class="contenerdor">
       <div class="contenedor_scroll px-1">
         <Products
-          v-for="product of most_seen"
-          :key="product.id"
-          :title="product.title"
-          :images="product.img"
-          :condicion="product.excerpt"
-          :descuento="product.price"
+          v-for="product in most_seen"
+          :key="most_seen[product]"
+          :title="most_seen[product]"
+          :images="most_seen[product]"
+          :condicion="most_seen[product]"
+          :descuento="most_seen[product]"
         ></Products> 
       </div>
     </div>
