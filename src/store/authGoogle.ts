@@ -25,9 +25,6 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         await GoogleAuth.signOut();
         const response = await GoogleAuth.signIn();
         this.user = jwt_decode(response.authentication.idToken);
-
-        console.log(response);
-
         const dataUser = {
           email: this.user.email,
           family_name: this.user.family_name,
@@ -51,9 +48,7 @@ const useAuthGoogleStore = defineStore('authGoogle', {
           })
         });
         const res = await responseUser.json();
-        dataUser.AccessToken = res.remember_token;
-        console.log(res.remember_token);
-        console.log(responseUser);
+        dataUser.AccessToken = res.token;
 
         storeDataUser.email = this.user.email;
         storeDataUser.family_name = this.user.family_name;
@@ -63,7 +58,7 @@ const useAuthGoogleStore = defineStore('authGoogle', {
           capitalizeFirstLetter(this.user.given_name ?? '') +
           ' ' +
           capitalizeFirstLetter(this.user.family_name ?? ''); 
-        storeDataUser.AccessToken = res.remember_token
+        storeDataUser.AccessToken = res.token
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));
