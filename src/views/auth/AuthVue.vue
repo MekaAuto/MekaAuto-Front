@@ -94,8 +94,6 @@ const storeGoogle = useAuthGoogleStore();
 let email = ref('');
 let password = ref('');
 
-console.log(import.meta.env.VITE_BACK_URL)
-
 onMounted(() => {
   GoogleAuth.initialize();
 });
