@@ -1,17 +1,66 @@
+<!-- eslint-disable no-constant-condition -->
 <script setup lang="ts">
+import { onBeforeMount, onMounted, ref } from 'vue';
 import NavBar from './navBar.vue';
+import { Capacitor } from '@capacitor/core';
+
+const prevScrolly = ref(0);
+const headerClass = ref('');
+const header = ref();
+const heightDiv = ref('133px');
+
+onMounted(() => {
+  addEventListener('scroll', scrollFunction);
+});
+
+onBeforeMount(() => {
+  removeEventListener('scroll', scrollFunction);
+});
+
+const scrollFunction: any = () => {
+  const currentScrolly = window.scrollY;
+  if (currentScrolly === 0) {
+    headerClass.value = '';
+    return;
+  }
+  if (currentScrolly > prevScrolly.value && headerClass.value !== 'scroll-down') {
+    headerClass.value = 'scroll-down';
+  } else if (currentScrolly < prevScrolly.value && headerClass.value === 'scroll-down') {
+    headerClass.value = 'scroll-up';
+  }
+  prevScrolly.value = currentScrolly;
+};
+
+const iosPadding = () => {
+  header.value.style.paddingTop = '50px 0 35px';
+  header.value.style.height = 'auto';
+};
+
+if (Capacitor.getPlatform() == 'ios') {
+  iosPadding();
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits(['activeNav'])
+const emit = defineEmits(['activeNav']);
 
 const activeNav = () => {
   // @ts-ignore: Object is possibly 'null'.
   document.getElementById('cerrarNav').classList.toggle('active');
-}
-
+};
 </script>
 
 <style scoped lang="scss">
+/* .header {
+  transition: 1s;
+} */
+.scroll-down {
+  transform: translate3d(0, -100%, 0);
+}
+
+.scroll-up {
+  transform: none;
+}
+
 header {
   padding: 15px 0;
   background-color: #15161d;
@@ -21,6 +70,7 @@ header {
   width: 100%;
   height: 133px;
   z-index: 4;
+  transition: transform 0.4s;
 }
 
 .container-header {
@@ -98,22 +148,23 @@ header {
 }
 
 .boton-secondary:hover {
-    background-color: #f3f3f3;
-  }
+  background-color: #f3f3f3;
+}
 
-  .boton-secondary:active {
-    background-color: #aaaaaa;
-  }
+.boton-secondary:active {
+  background-color: #aaaaaa;
+}
 </style>
 
 <template>
-  <header>
-    <div class="container-header px-4 sm:container sm:p-0 ">
-      <div class="container-nav ">
+  <div :style="`height: ${heightDiv}; background-color: #f4f4f4 `"></div>
+  <header ref="header" class="header" :class="headerClass" id="header">
+    <div class="container-header px-4 sm:container sm:p-0">
+      <div class="container-nav">
         <div class="">
-          <a href="#" class="btn-header" @click="activeNav">
+          <button href="#" class="btn-header" @click="activeNav">
             <i class="icon-header fas fa-bars boton-primary"></i>
-          </a>
+          </button>
         </div>
 
         <div href="#" class="logo-header">
@@ -134,6 +185,5 @@ header {
       </div>
     </div>
   </header>
-
   <NavBar @activeNav="activeNav" />
 </template>

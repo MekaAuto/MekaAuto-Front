@@ -2,7 +2,6 @@
   <div class="">
     <HeaderVue />
     <div class="2xl:container mx-auto">
-      <div style="height: 133px"></div>
       <bannerPrincipalVue />
       <CarroHome/>
     </div>
