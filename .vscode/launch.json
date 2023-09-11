@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "name": "Launch Edge",
             "request": "launch",
-            "name": "Iniciar Chrome para localhost",
-            "url": "http://localhost:8080",
+            "type": "chrome",
+            "url": "http://localhost:5173",
             "webRoot": "${workspaceFolder}"
         }
     ]

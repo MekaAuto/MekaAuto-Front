@@ -1,0 +1,58 @@
+GET http://127.0.0.1:8000
+
+###
+
+POST https://mekautos.uniblockweb.com/api/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "david",
+  "email": "sadsfdsfgsdfgsdgf@gmail.com",
+  "password" : "123456"
+}
+
+###
+
+POST https://mekautos.uniblockweb.com/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "davidostos@gmail.com",
+  "password" : "123456"
+}
+
+###
+POST http://127.0.0.1:8000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "davidostos2@gmail.com",
+  "password" : "123456"
+}
+
+### 
+POST https://mekautos.uniblockweb.com/api/auth/googleUser
+Accept: application/json
+Content-Type: application/json
+
+{
+  "familyName" : "Ostos",
+  "givenName" : "David",
+  "email": "davidostos2@gmail.com",
+  "imageUrl" : "https://lh3.googleusercontent.com/a/AAcHTtc-_Si48dFtZfLb_TvZofIhVrhKsB5Cw5szBCmjg1OfTdU=s96-c",
+  "idToken": "110767012227547596340"
+}
+
+###
+
+GET https://mekautos.uniblockweb.com/api/post
+Accept: application/json
+Content-Type: application/json
+
+###
+GET https://fakestoreapi.com/products?offset=0&limit=10
+Accept: application/json
+Content-Type: application/json

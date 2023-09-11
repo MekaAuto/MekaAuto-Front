@@ -1,45 +1,44 @@
 <script setup lang="ts">
-import Products from '../container/products.vue';
 import { ref } from 'vue';
+import Products from '../container/products.vue';
 import TitleProducts from '../container/titleProducts.vue';
 
+const uri = import.meta.env.VITE_BACK_URL + '/post';
 const products: any = ref([]);
+const most_seen = ref([]);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps({
-  title: String,
-  title2: String
-})
-
-fetch('https://fakestoreapi.com/products?offset=0&limit=10')
+fetch(uri)
   .then((res) => res.json())
   .then((data) => {
     products.value = data;
-    console.log(products.value);
+    most_seen.value = products.value.most_seen.data;
   });
+
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <TitleProducts 
-    :title="title" 
-    :title2="title2" />
+  <div class="container mx-auto"
+    v-for="(post, index) in products"
+    :key="post.id">
+    <TitleProducts  :title="index.toString()" />
     <div class="contenerdor">
       <div class="contenedor_scroll px-1">
         <Products
-          v-for="product in products"
+          v-for="product in post"
           :key="product.id"
           :title="product.title"
-          :images="product.image"
-          :condicion="product.condicion"
-          :descuento="product.descuento"
-        ></Products>
+          :images="product.img"
+          :condicion="product.price"
+          :descuento="product.price"
+        ></Products> 
       </div>
     </div>
   </div>
+
+
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .contenerdor {
   overflow: scroll;
   scroll-snap-type: x mandatory;
@@ -52,5 +51,4 @@ fetch('https://fakestoreapi.com/products?offset=0&limit=10')
   display: flex;
   padding-bottom: 40px;
   position: relative;
-}
-</style>
+}</style>

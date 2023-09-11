@@ -145,13 +145,10 @@ const createUser = async () => {
   const response = await store.register(name.value, email.value, password.value);
 
   if (!response) {
-    const errors = store.errors;
-    for (const error in errors) {
-      console.log(errors[error]);
-      alert(errors[error]);
-    }
+    setTimeout(() => {
+      location.reload();
+    }, 5000)
   } else {
-    router.push({ name: 'home' });
     router.push({ name: 'home' });
   }
 };
