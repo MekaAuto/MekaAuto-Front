@@ -51,3 +51,8 @@ Content-Type: application/json
 GET https://mekautos.uniblockweb.com/api/post
 Accept: application/json
 Content-Type: application/json
+
+###
+GET https://fakestoreapi.com/products?offset=0&limit=10
+Accept: application/json
+Content-Type: application/json
