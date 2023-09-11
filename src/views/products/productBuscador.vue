@@ -7,7 +7,7 @@ fetch(uri)
 
 <template>
   <div class="container mx-auto">
-    <TitleProducts 
+<!--     <TitleProducts 
     :title="title" 
     :title2="title2" />
     <div class="contenerdor">
@@ -21,7 +21,7 @@ fetch(uri)
           :descuento="product.descuento"
         ></Products>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
