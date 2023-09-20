@@ -100,7 +100,6 @@ import useDataUser from '@/store/dataUser';
 
 const storeDataUser = useDataUser();
 
-console.log(storeDataUser.picture);
 </script>
 
 <style scoped lang="scss">

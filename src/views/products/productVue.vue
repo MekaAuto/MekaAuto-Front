@@ -232,6 +232,12 @@ window.addEventListener('resize', getimgPrincipalSize);
 </script>
 
 <style scoped lang="scss">
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
+
 #product-main-img {
   width: 100%;
   cursor: zoom-in;

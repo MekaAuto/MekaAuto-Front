@@ -57,8 +57,8 @@ const useAuthGoogleStore = defineStore('authGoogle', {
         storeDataUser.fullname =
           capitalizeFirstLetter(this.user.given_name ?? '') +
           ' ' +
-          capitalizeFirstLetter(this.user.family_name ?? ''); 
-        storeDataUser.AccessToken = res.token
+          capitalizeFirstLetter(this.user.family_name ?? '');
+        storeDataUser.AccessToken = res.token;
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));
@@ -75,9 +75,25 @@ const useAuthGoogleStore = defineStore('authGoogle', {
     },
     async logout() {
       try {
-        this.user = '';
+          const uri = `${this.baseURl}/auth/logout`;
+           const rawResponse = await fetch(uri, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'Application/json',
+              Accept: 'application/json',
+              Authorization: `Bearer ${storeDataUser.AccessToken}`
+            },
+            body: JSON.stringify({
+              access_token: storeDataUser.AccessToken
+            })
+          });
+        const res = await rawResponse.json();
         localStorage.removeItem('user');
-        /* await GoogleAuth.signOut() */
+        try{
+          await GoogleAuth.signOut();
+        }catch (e){
+          console.log(e);
+        }
         window.location.reload();
       } catch (error) {
         console.error(error);

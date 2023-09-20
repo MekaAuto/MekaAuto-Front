@@ -2,11 +2,11 @@ import { defineStore } from "pinia";
 
 interface State {
   email: string | undefined,
-  family_name: string,
-  given_name: string,
-  picture: string,
-  fullname: string,
-  AccessToken: string
+  family_name: string | undefined,
+  given_name: string | undefined,
+  picture: string | undefined,
+  fullname: string | undefined,
+  AccessToken: string | undefined
 }
 
 function capitalizeFirstLetter(string: string) {

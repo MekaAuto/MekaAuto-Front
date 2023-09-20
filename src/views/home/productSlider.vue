@@ -15,7 +15,6 @@ fetch('https://fakestoreapi.com/products?offset=0&limit=10')
   .then((res) => res.json())
   .then((data) => {
     products.value = data;
-    console.log(products.value);
   });
 </script>
 

@@ -61,7 +61,11 @@ const router = createRouter({
     {
       path: '/user',
       name: 'userInfo',
-      component: () => import('../views/user/userBase.vue')
+      component: () => import('../views/user/userBase.vue'),
+      meta: {
+        requireAuth: true,
+        role: 'admin'
+      }
     },
     {
       path: '/prueba/productBuscador',

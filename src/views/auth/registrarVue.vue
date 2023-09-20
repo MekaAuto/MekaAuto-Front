@@ -16,8 +16,7 @@
                     <input
                       type="text"
                       class="form-control form-control-user"
-                      id="exampleFirstName"
-                      placeholder="First Name"
+                      placeholder="Nombre"
                       v-model="nombre"
                     />
                   </div>
@@ -25,28 +24,36 @@
                     <input
                       type="text"
                       class="form-control form-control-user"
-                      id="exampleLastName"
-                      placeholder="Last Name"
+                      placeholder="Apellido"
                       v-model="apellido"
                     />
                   </div>
                 </div>
-                <div class="form-group">
-                  <input
-                    type="email"
-                    class="form-control form-control-user"
-                    id="exampleInputEmail"
-                    placeholder="Email Address"
-                    v-model="email"
-                  />
+                <div class="form-group gap-2 flex">
+                  <div class="sm:max-w-[50%] mb-4 sm:mb-0">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      placeholder="Correo Electronico"
+                      v-model="email"
+                    />
+                  </div>
+                  <div class="sm:max-w-[50%]">
+                    <input
+                      type="number"
+                      class="form-control form-control-user"
+                      placeholder="Numero de telefono"
+                      v-model="phone"
+                    />
+                  </div>
                 </div>
+
                 <div class="form-group gap-2 flex">
                   <div class="sm:max-w-[50%] mb-4 sm:mb-0">
                     <input
                       type="password"
                       class="form-control form-control-user"
-                      id="exampleInputPassword"
-                      placeholder="Password"
+                      placeholder="Contraseña"
                       v-model="password"
                     />
                   </div>
@@ -54,8 +61,7 @@
                     <input
                       type="password"
                       class="form-control form-control-user"
-                      id="exampleRepeatPassword"
-                      placeholder="Repeat Password"
+                      placeholder="Repetir contraseña"
                       v-model="rePassword"
                     />
                   </div>
@@ -88,6 +94,11 @@
   </div>
 </template>
 <style scoped>
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 body {
   margin: 0;
   font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial,
@@ -129,6 +140,7 @@ const store = useAuthStore();
 const nombre = ref('');
 const apellido = ref('');
 const email = ref('');
+const phone = ref('');
 const password = ref('');
 const rePassword = ref('');
 
@@ -142,12 +154,15 @@ const createUser = async () => {
     alert('ingrese la contraseña');
     return false;
   }
-  const response = await store.register(name.value, email.value, password.value);
+  const response = await store.register(name.value, email.value, phone.value, password.value);
 
   if (!response) {
-    setTimeout(() => {
-      location.reload();
-    }, 5000)
+    nombre.value ='';
+    apellido.value ='';
+    email.value ='';
+    phone.value ='';
+    password.value ='';
+    rePassword.value ='';
   } else {
     router.push({ name: 'home' });
   }

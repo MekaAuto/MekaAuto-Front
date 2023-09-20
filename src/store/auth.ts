@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import router from '@/router';
-import { toast } from 'vue3-toastify';
+import { toast, type ToastOptions } from 'vue3-toastify';
 import useDataUser from './dataUser';
 
 function capitalizeFirstLetter(string: string) {
@@ -19,36 +19,41 @@ const useAuthStore = defineStore('auth', {
   },
   getters: {},
   actions: {
-    async register(name: string, email: string, password: string) {
+    async register(name: string, email: string, phone: string, password: string) {
       const uri = `${this.baseURl}/auth/register`;
       const rawResponse = await fetch(uri, {
         method: 'POST',
+        redirect: 'follow',
         headers: {
-          'Content-Type': 'Application/json',
-          Accept: 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           name: name,
           email: email,
+          phone_number: phone,
           password: password
         })
       });
       const response: any = await rawResponse.json();
-      if (!response.status) {
-        /**
-         * this.errors.email = response.errors.email[0] | "";
-         * this.errors.name = response.errors.name[0] | "";
-         * this.errors.password = response.errors.password[0] | "";
-         * */
-        this.errors = response.message;
-
-        toast.success(this.errors);
+        if (!response.status) {
+          for (const err in response.errors) {
+            toast.error(response.errors[err]);
+          }
+        this.errors = response.errors;
         return false;
         //ERROR
       } else {
-        this.jwt = response.token;
         this.success = response.message;
-        return true;
+        toast.success(
+          `${response.message}
+Revise su correo, para verificar su email, puede estar en la sección de spam`,{
+            autoClose: false,
+            type: toast.TYPE.INFO,
+            onClose: () => router.push({ name: 'home'})
+          } as ToastOptions )
+          
+        
         // SUCCESS
       }
     },
@@ -67,36 +72,34 @@ const useAuthStore = defineStore('auth', {
         })
       });
       const response = await rawResponse.json();
-
-      console.log(response.AccessToken);
       if (response.status === false) {
-        for (const err in response.errors) {
-          toast.error(response.errors[err]);
-          console.log(response.errors[err]);
-        }
+          toast.error(response.message);
+          console.log(response.message);
       } else {
+        const data = response.data;
         const dataUser = {
-          email: response.email,
-          family_name: response.familyName,
-          give_name: response.givenName,
-          picture: response.imageUrl,
-          AccessToken: response.AccessToken
+          email: data.email,
+          family_name: data.familyName,
+          give_name: data.givenName,
+          picture: data.imageUrl,
+          AccessToken: response.access_token
         };
 
-        storeDataUser.email = response.email;
-        storeDataUser.family_name = response.familyName;
-        storeDataUser.given_name = response.givenName;
-        storeDataUser.picture = response.imageUrl;
+        storeDataUser.email = data.email;
+        storeDataUser.family_name = data.familyName;
+        storeDataUser.given_name = data.givenName;
+        storeDataUser.picture = data.imageUrl;
         storeDataUser.fullname =
           capitalizeFirstLetter(storeDataUser.given_name ?? '') +
           ' ' +
           capitalizeFirstLetter(storeDataUser.family_name ?? '');
-        storeDataUser.AccessToken = response.AccessToken;
+        storeDataUser.AccessToken = response.access_token;
 
         localStorage.clear();
         localStorage.setItem('user', JSON.stringify(dataUser));
 
-        this.jwt = response.AccessToken;
+
+        this.jwt = response.access_token;
         this.success = response.message;
 
         toast.success(response.message);
@@ -105,7 +108,6 @@ const useAuthStore = defineStore('auth', {
           router.push({ name: 'home' });
         }, 3000);
       }
-      console.log(this.jwt);
     },
     async getNotes() {
       const uri = `${this.baseURl}/note`;
@@ -140,9 +142,6 @@ const useAuthStore = defineStore('auth', {
       } else {
         return true;
       }
-    },
-    logout() {
-      this.jwt = null;
     }
   }
 });
