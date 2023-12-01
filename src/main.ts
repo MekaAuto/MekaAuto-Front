@@ -9,15 +9,10 @@ import 'vue3-toastify/dist/index.css';
 const pinia = createPinia();
 const app = createApp(App);
 
-app.use(pinia);
-
-app.use(router);
-
-app.use(Vue3Toasity, {
+app.use(pinia).use(router).use(Vue3Toasity, {
   autoClose: 3000,
   style: {},
   hideProgressBar: true
-} as ToastContainerOptions);
-
-app.mount('#app');
+} as ToastContainerOptions)
+.mount('#app');
 

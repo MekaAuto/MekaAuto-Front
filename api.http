@@ -1,0 +1,140 @@
+###                                     REGISTRO 
+### registro Back
+
+POST https://mekautos.uniblockweb.com/api/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "davidostos@gmail.com",
+  "email": "davisd@gmvail.com",
+  "phone_number": "123456789",
+  "password": "123456789"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/auth/register
+Content-Type: application/json
+Accept: application/json
+redirect: follow
+
+{
+  "name": "davidostos@gmail.com",
+  "email": "sdfgvssdasd@gmail.com",
+  "phone_number": "123456789",
+  "password": "123456789"
+}
+
+###
+
+POST https://mekautos.uniblockweb.com/api/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "david",
+  "email": "prueba2@gmail.com",
+  "password" : "12345678",
+  "phone_number": "4241234567",
+  "givenName" : "Nombre",
+  "familyName": "Apellido"
+}
+
+###                               LOGIN
+### Login back 
+POST https://mekautos.uniblockweb.com/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "prueba@gmail.com",
+  "password" : "12345678"
+}
+
+### Login back 
+POST https://mekautos.uniblockweb.com/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "prueba2@ujyuitygmail.com",
+  "password" : "12345678"
+}
+
+### login Google
+POST https://mekautos.uniblockweb.com/api/auth/googleUser
+Accept: application/json
+Content-Type: application/json
+
+{
+  "familyName" : "Ostos",
+  "givenName" : "David",
+  "email": "davidostos2@gmail.com",
+  "imageUrl" : "https://lh3.googleusercontent.com/a/AAcHTtc-_Si48dFtZfLb_TvZofIhVrhKsB5Cw5szBCmjg1OfTdU=s96-c",
+  "idToken": "110767012227547596340"
+}
+
+###                             POST
+
+GET https://mekautos.uniblockweb.com/api/post
+Accept: application/json
+Content-Type: application/json
+
+
+###                                   USER
+POST https://mekautos.uniblockweb.com/api/auth/users
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 70|1TQiIqXKiBMfCEYYVKy3LPgUMeTUW6V9PkhPnU6E30ff629a
+
+{
+  "access_token": "70|1TQiIqXKiBMfCEYYVKy3LPgUMeTUW6V9PkhPnU6E30ff629a"
+}
+
+###                                 LOGOUT
+POST https://mekautos.uniblockweb.com/api/auth/logout
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 50|FBODbdmxtT7qhxVVyXzLYlf7DxZUrZ2wgr5d3Plge4e9e2dc
+
+{
+  "access_token": "50|FBODbdmxtT7qhxVVyXzLYlf7DxZUrZ2wgr5d3Plge4e9e2dc"
+}
+
+###                               recovery password
+POST https://mekautos.uniblockweb.com/api/email-recover-password
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email" : "davidostos2@gmail.com"
+}
+
+###                  API Prueba 
+POST http://127.0.0.1:8000/api/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "david",
+  "email": "sadsfdklkfsf@gmail.com",
+  "password" : "12345678",
+  "phone_number": "4241234567gvvngn"
+}
+
+###
+POST http://127.0.0.1:8000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "davidostos2@gmail.com",
+  "password" : "123456"
+}
+
+
+###
+GET https://fakestoreapi.com/products?offset=0&limit=10
+Accept: application/json
+Content-Type: application/json

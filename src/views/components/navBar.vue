@@ -1,18 +1,28 @@
 <!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <template>
-  <div class="cerrarNav" id="cerrarNav">
+  <div class="cerrarNav absolute top-0" id="cerrarNav">
     <div class="exit" @click="emit('activeNav')"></div>
     <div id="responsive-nav" class="responsive-nav px-4 w-screen md:w-2/5 max-w-md">
       <div class="container-logo">
         <img
-          :src="imgSrc || imgUser"
-          alt="Foto del usuario"
+          :src="imgUser"
+          alt="imagen referencial"
+          v-if="storeDataUser.email === undefined"
           width="64"
           height="64"
-          @load="onImageLoad"
-          decoding="async"
-          referrerpolicy="no-referrer"
         />
+
+        <RouterLink :to="{ name: 'userInfo' }" v-if="storeDataUser.email !== undefined">
+          <img
+            :src="storeDataUser.picture ?? imgUser"
+            alt="Foto del usuario"
+            width="64"
+            height="64"
+            decoding="async"
+            referrerpolicy="no-referrer"
+          />
+          
+        </RouterLink>
         <div class="flex gap-4">
           <RouterLink
             :to="{ name: 'auth' }"
@@ -26,21 +36,15 @@
           >
             Logout
           </button>
-          <a class="btn-exit" href="#"
+          <button class="btn-exit" href="#"
             ><i @click="emit('activeNav')" class="icon-exit fas fa-times"></i
-          ></a>
+          ></button>
         </div>
       </div>
 
       <hr />
       <h2 class="nav-title">
-        {{
-          dataUser.give_name !== ''
-            ? capitalizeFirstLetter(dataUser.give_name ?? '') +
-              ' ' +
-              capitalizeFirstLetter(dataUser.family_name ?? '')
-            : ''
-        }}
+        {{ storeDataUser.fullname }}
       </h2>
       <hr />
       <div class="scrollable-list scrollbar-cyan">
@@ -67,7 +71,7 @@
             </button>
           </li>
           <hr />
-          <h2 class="nav-title">MekAuto</h2>
+          <h2 class="nav-title meka-auto">MekAuto</h2>
           <li>
             <button data-te-ripple-init data-te-ripple-color="light" class="btn-categoria btn-dark">
               <i class="fas fa-star"></i> Lista de favoritos
@@ -128,33 +132,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import footerPrincipal from './footerPrincipal.vue';
 import { Ripple, initTE } from 'tw-elements';
 import useAuthGoogleStore from '@/store/authGoogle';
 import imgUser from '../../img/user.png';
+import useDataUser from '@/store/dataUser';
 
 const storeGoogle = useAuthGoogleStore();
-
-const dataUser = ref(JSON.parse(localStorage.getItem('user') ?? '{}'));
-
-const imgSrc = dataUser.value.picture;
-
-let isImageLoaded = false;
-
-const onImageLoad = () => {
-  return isImageLoaded = true;
-};
+const storeDataUser = useDataUser();
 
 onMounted(() => {
   initTE({ Ripple });
 });
 const emit = defineEmits(['activeNav']);
 
-
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 </script>
 
 <style scoped lang="scss">
@@ -277,6 +269,10 @@ hr {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
+}
+
+.nav-title.meka-auto{
+  padding-bottom: 1rem;
 }
 
 .btn-primary {

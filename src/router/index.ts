@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createRouter, createWebHistory } from 'vue-router';
-import useAuthStore from '@/store/auth';
+import useDataUser from '@/store/dataUser';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +10,7 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/HomeView.vue'),
       meta: {
-        requireAuth: false,
+        requireAuth: true,
         role: 'admin'
       }
     },
@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/product',
       name: 'product',
-      component: () => import('../views/Pruebas/productVue.vue')
+      component: () => import('../views/products/productVue.vue')
     },
     {
       path: '/home/carroHome',
@@ -59,26 +59,38 @@ const router = createRouter({
       component: () => import('../views/home/categorias/camionHome.vue')
     },
     {
-      path: '/prueba/filtro',
-      name: 'pruebaFiltro',
-      component: () => import('../views/Pruebas/filtroPrueba.vue')
+      path: '/user',
+      name: 'userInfo',
+      component: () => import('../views/user/userBase.vue'),
+      meta: {
+        requireAuth: true,
+        role: 'admin'
+      }
     },
     {
-      path: '/prueba/toast',
-      name: 'pruebaToast',
-      component: () => import('@/views/Pruebas/toastPrueba.vue')
+      path: '/prueba/productBuscador',
+      name: 'productBuscador',
+      component: () => import('../views/products/productBuscador.vue')
+    },
+    {
+      path: '/prueba/productHome',
+      name: 'productHome',
+      component: () => import('../views/products/productHome.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 };
+  }
 });
 
 router.beforeEach((to, from, next) => {
   // to = a donde el usuario quiere ir // from = de donde viene // next = a donde va a ir
-  const storeAuth = useAuthStore();
-  const isAuth = storeAuth.jwt;
+  const store = useDataUser();
+  const isAuth = store.AccessToken;
   const needAuth = to.meta.requireAuth;
   const role = to.meta.role;
 
-  if (needAuth && (isAuth === null || role !== 'admin')) {
+  if (needAuth && (isAuth === undefined || role !== 'admin')) {
     next('auth');
   } else {
     next();
